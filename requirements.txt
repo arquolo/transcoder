@@ -1,0 +1,5 @@
+glow>=0.9.dev1
+matplotlib
+numpy
+optuna>=2.0
+scipy
