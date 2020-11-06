@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from pathlib import Path
 from typing import Dict, Iterator, List, Tuple
 
-import glow  # noqa
+import glow  # noqa  # Prevent hanging of SciPy on CTRL-C
 import numpy as np
 import optuna
 from scipy.interpolate import interp1d
