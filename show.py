@@ -61,15 +61,15 @@ min_complexity = df['complexity'].min()
 
 # key = 'value'
 # for len_, g in df.groupby('complexity'):
-    # if len_ > min_complexity + 5:
-        # continue    
-    # for r in g.nlargest(ARGS.count, key).sort_values('ssim').itertuples():
-        # print(f' Score: {r.value:.3f}, SSIM: {r.ssim:.3f}, FPS: {r.fps:.2f}')
-        # params = ' '.join('='.join(s2.split()) for s in r.cli.split('--')
-                          # if (s2 := s.strip()))
-        # print(*(f'  {line}' for line in textwrap.wrap(params, width=140)),
-              # sep='\n')
-    # print()
+#     if len_ > min_complexity + 5:
+#         continue
+#     for r in g.nlargest(ARGS.count, key).sort_values('ssim').itertuples():
+#         print(f' Score: {r.value:.3f}, SSIM: {r.ssim:.3f}, FPS: {r.fps:.2f}')
+#         params = ' '.join('='.join(s2.split()) for s in r.cli.split('--')
+#                           if (s2 := s.strip()))
+#         print(*(f'  {line}' for line in textwrap.wrap(params, width=140)),
+#               sep='\n')
+#     print()
 
 
 fig = plt.figure('SSIM / FPS diagram')
