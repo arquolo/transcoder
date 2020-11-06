@@ -45,7 +45,7 @@ def parse_args():
     return parser.parse_args()
 
 
-def get_params(trial: optuna.Trial) -> Iterator[str]:
+def get_params(trial: optuna.Trial) -> Iterator[str]:  # noqa: C901
 
     def lock_param(name: str, value: object):
         trial.set_system_attr(
