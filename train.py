@@ -47,11 +47,21 @@ def parse_args():
 
 def get_params(trial: optuna.Trial) -> Iterator[str]:
 
-    def get_flag(name: str) -> str:
+    def lock_param(name: str, value: object):
+        trial.set_system_attr(
+            'fixed_params',
+            {**trial.system_attrs.get('fixed_params', {}), name: value},
+        )
+
+    def get_flag(name: str, lock: bool = None) -> str:
+        if lock is not None:
+            lock_param(name, lock)
         return name if trial.suggest_categorical(name, [False, True]) else ''
 
     def get_int(name: str, low: int, high: int,
-                step: int = 1, default: bool = 0) -> str:
+                step: int = 1, default: int = 0, lock: int = None) -> str:
+        if lock is not None:
+            lock_param(name, lock)
         if default != (value :=
                        trial.suggest_int(name, low, high, step)):
             return f'{name} {value}'
