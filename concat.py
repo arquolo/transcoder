@@ -1,22 +1,29 @@
+"""Concatenates *.y4m files into single one per folder"""
 import subprocess
+import sys
+from argparse import ArgumentParser
 from pathlib import Path
 
-ROOT = Path('D:/Encode')
+p = ArgumentParser('Reduce encoding overhead via concatenation of *.y4m files')
+p.add_argument('root', type=Path, help='Location of folders with *.y4m files.')
 
-FFMPEG = ROOT / 'bin/ffmpeg-n4.3.1-20-g8a2acdc6da-win64-gpl-4.3/ffmpeg.exe'
-DATA = ROOT / 'xiph.org'
-TXT = ROOT / 'xiph.org/list.txt'
+ROOT = p.parse_args().root
+TXT = ROOT / 'list.txt'
 
-for dir_ in DATA.iterdir():
-    if not dir_.is_dir():
+FFMPEG = (
+    next(Path(__file__).parent.rglob('ffmpeg.exe'))
+    if sys.platform == 'win32' else 'ffmpeg')
+
+for folder in ROOT.iterdir():
+    if not folder.is_dir():
         continue
 
     TXT.write_text('\n'.join(
-        f"file '{p.as_posix()}'" for p in dir_.glob('*.y4m')))
+        f"file '{p.as_posix()}'" for p in folder.glob('*.y4m')))
 
     subprocess.run(
-        f(f'{FFMPEG} -y -r 30 -f concat -safe 0 -i {TXT.as_posix()}'
-          f' {dir_.as_posix()}.y4m'),
+        (f'{FFMPEG} -y -r 30 -f concat -safe 0 -i {TXT.as_posix()}'
+         f' {folder.as_posix()}.y4m'),
         shell=True,
         check=True,
     )
