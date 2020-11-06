@@ -2,7 +2,6 @@ import csv
 import os
 import shutil
 import subprocess
-import traceback
 from argparse import ArgumentParser
 from pathlib import Path
 from typing import Dict, Iterator, List, Tuple
